@@ -1,14 +1,16 @@
 const Router = require('koa-router')
 const {PositiveValidator} = require('../validator/validator')
 const {Clock} = require('../models/clock')
+const { Auth } = require('../../middlewares/auth')
 
 const router = new Router({
   prefix: '/clock'
 })
 
-router.get('/query', async (ctx, next) => {
-  const v = await new PositiveValidator().validate(ctx, {id: 'uid'})
-  const res = await Clock.getUserClockData(v.get('query.uid'))
+router.get('/query',new Auth().m , async (ctx, next) => {
+  // const v = await new PositiveValidator().validate(ctx, {id: 'uid'})
+  const uid = ctx.auth.uid
+  const res = await Clock.getUserClockData(uid)
   const ans = {}
   res.forEach(item => {
     const key = `${item.year}-${item.month}`
@@ -20,9 +22,13 @@ router.get('/query', async (ctx, next) => {
   ctx.body = ans
 })
 
-router.post('/', async (ctx, next) => {
-  const v = await new PositiveValidator().validate(ctx, {id: 'uid'})
-  await Clock.setClock(v.get('body.uid'), v.get('body.year'), v.get('body.month'), v.get('body.date'))
+router.post('/',new Auth().m , async (ctx, next) => {
+  // const v = await new PositiveValidator().validate(ctx, {id: 'uid'})
+  const uid = ctx.auth.uid
+  const year = ctx.request.body.year
+  const month = ctx.request.body.month
+  const date = ctx.request.body.date
+  await Clock.setClock(uid, year, month, date)
   throw new global.errs.Success('您已成功签到')
 })
 

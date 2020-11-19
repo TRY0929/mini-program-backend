@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/TRY0929/mini-program-backend#readme",
   "dependencies": {
+    "axios": "^0.21.0",
+    "basic-auth": "^2.0.1",
+    "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.0",
     "koa-bodyparser": "^4.3.0",
@@ -25,6 +28,7 @@
     "mysql2": "^2.2.5",
     "require-directory": "^2.1.1",
     "sequelize": "^6.3.5",
+    "util": "^0.12.3",
     "validator": "^13.1.17"
   }
 }

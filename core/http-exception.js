@@ -21,7 +21,25 @@ class NotFound extends HttpException {
     super()
     this.msg = msg || '资源不存在'
     this.error_code = error_code || 10001
-    this.code = 404 || code
+    this.code = code || 404
+  }
+}
+
+class AuthorFailed extends HttpException {
+  constructor (msg, error_code, code) {
+    super()
+    this.msg = msg || '授权失败'
+    this.error_code = error_code || 10004
+    this.code = code || 401
+  }
+}
+
+class Forbidden extends HttpException {
+  constructor (msg, error_code, code) {
+    super()
+    this.msg = msg || '禁止访问'
+    this.error_code = error_code || 10003
+    this.code = code || 403
   }
 }
 
@@ -38,5 +56,7 @@ module.exports = {
   HttpException,
   ParameterException,
   NotFound,
-  Success
+  Success,
+  AuthorFailed,
+  Forbidden
 }
