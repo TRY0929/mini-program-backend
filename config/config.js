@@ -1,5 +1,6 @@
 module.exports = {
   environment: 'dev',
+  host: 'http://localhost:3000',
   database: {
     user: 'root', 
     host: 'localhost',
